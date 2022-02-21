@@ -6,12 +6,13 @@ library(ape)
 library(protr)
 library(RColorBrewer)
 
+#READ FILE
 fasta<-readFASTA("ancestral.fasta")
 tree<-read.tree("Tetrapoda_species_rename_sel.tre")
-
 fas$names<-names(fasta)
 fas$seq<-sapply(fasta, "[[", 1)
 
+#COLORS
 colors<-vector()
 colors<-c(colors, brewer.pal(n =9, name = "Reds"))
 colors<-c(colors, brewer.pal(n =9, name = "Purples"))
@@ -21,8 +22,10 @@ colors<-c(colors, brewer.pal(n =9, name = "Greys"))
 
 colors2<-sample(colors)
 
+#PLOT PDF
 pdf("HA_ancestral.pdf", height=30, width=10)
 
+#PLOT ON PHYLOGENY
 for(i in 1:nchar(fas$seq[[1]])){
 	list<-sapply(strsplit(sapply(fas$seq, "[[", 1), ""), "[[", i)
 	if(length(unique(list))>1){
@@ -44,4 +47,3 @@ for(i in 1:nchar(fas$seq[[1]])){
 	}
 }
 dev.off()
-
